@@ -71,6 +71,7 @@ Example JSON Request:
   ],
   "stream": false
 }
+```
 
 ### Usage
 
