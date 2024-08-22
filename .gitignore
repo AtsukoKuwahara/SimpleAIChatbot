@@ -1,0 +1,55 @@
+//
+//  .gitignore
+//  SimpleAIChatbot
+//
+//  Created by Atsuko Kuwahara on 2024-11-18.
+//
+
+# macOS & Xcode
+*.DS_Store
+*.swp
+*.xcuserdatad
+*.xcworkspace
+DerivedData/
+build/
+
+# Swift Packages
+.swiftpm
+Package.resolved
+*.xcodeproj/project.xcworkspace/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# SPM (Swift Package Manager)
+.build/
+.checkouts/
+.swiftpm/
+
+# Generated Files
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.bcsymbolmap
+*.xcarchive
+
+# Logs
+*.log
+*.xcactivitylog
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Other
+*.orig
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.pbxuser
+*.plist

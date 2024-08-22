@@ -25,6 +25,7 @@ struct SettingsView: View {
                     Slider(value: $temperature, in: 0...1, step: 0.1) {
                         Text("Temperature")
                     }
+                    .tint(.orange)
                     Text("Current: \(temperature, specifier: "%.1f")")
                 }
 
@@ -54,6 +55,7 @@ struct SettingsView: View {
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
             })
+            .accentColor(.orange)
         }
     }
 }
