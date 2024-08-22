@@ -12,10 +12,10 @@ OrangeBot is an iOS application that interacts with multiple AI models, includin
 
 ## Screenshots
 
-![Chat Screen](assets/chat_screen_image.jpg)
-![Archive Screen](assets/archive_screen_image.jpg)
-![Detail Screen](assets/detail_screen_image.jpg)
-![Settings Screen](assets/settings_screen_image.jpg)
+<img src="assets/chat_screen_image.jpg" alt="Chat Screen" width="300"/>
+<img src="assets/archive_screen_image.jpg" alt="Archive Screen" width="300"/>
+<img src="assets/detail_screen_image.jpg" alt="Detail Screen" width="300"/>
+<img src="assets/settings_screen_image.jpg" alt="Settings Screen" width="300"/>
 
 ## Requirements
 
@@ -72,9 +72,9 @@ Example JSON Request:
     { "role": "user", "content": "Why is the sky blue?" }
   ],
   "options": {
-    "seed": seed,
-    "temperature": temperature,
-    "top_k": top_k
+    "seed": 42,
+    "temperature": 0.7,
+    "top_k": 40
     },
   "stream": false
 }
