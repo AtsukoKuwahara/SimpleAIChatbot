@@ -13,7 +13,7 @@ struct NetworkService {
     
     // This function sends a POST request to the API to fetch the chatbot's response.
     // It takes the user's message, the selected model, and a completion handler as parameters.
-    func fetchResponse(for userMessage: String, model: String, completion: @escaping (Result<ChatEntry, Error>) -> Void) {
+    func fetchResponse(for userMessage: String, model: String, temperature: Double, seed: Int, top_k: Int, completion: @escaping (Result<ChatEntry, Error>) -> Void) {
         guard !userMessage.isEmpty else { return } // Ensure the user message is not empty before proceeding.
 
         // Construct the URL for the API request.
@@ -24,11 +24,16 @@ struct NetworkService {
 
         // Prepare the body of the POST request as a JSON object.
         let body: [String: Any] = [
-            "model": model, // Include the selected model in the request.
+            "model": model,
             "messages": [
-                ["role": "user", "content": userMessage] // Include the user's message in the request.
+                ["role": "user", "content": userMessage]
             ],
-            "stream": false // Disable streaming to receive the full response at once.
+            "options": [
+                "seed": seed,
+                "temperature": temperature,
+                "top_k": top_k
+            ],
+            "stream": false
         ]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body) // Convert the body to JSON data.
 

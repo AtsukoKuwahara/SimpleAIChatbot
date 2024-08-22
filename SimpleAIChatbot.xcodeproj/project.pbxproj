@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A54F9C942C777265003047A7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54F9C932C777265003047A7 /* SettingsView.swift */; };
 		A55B92492C65601200596706 /* SimpleAIChatbotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B92482C65601200596706 /* SimpleAIChatbotApp.swift */; };
 		A55B924B2C65601200596706 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B924A2C65601200596706 /* ContentView.swift */; };
 		A55B924D2C65601400596706 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A55B924C2C65601400596706 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		A54F9C922C76797D003047A7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A54F9C932C777265003047A7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A55B92452C65601200596706 /* SimpleAIChatbot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleAIChatbot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A55B92482C65601200596706 /* SimpleAIChatbotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAIChatbotApp.swift; sourceTree = "<group>"; };
 		A55B924A2C65601200596706 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				A55B925E2C6A9E1100596706 /* ChatDetailView.swift */,
 				A55B92562C656BC500596706 /* LoadingView.swift */,
 				A54F9C922C76797D003047A7 /* README.md */,
+				A54F9C932C777265003047A7 /* SettingsView.swift */,
 			);
 			path = SimpleAIChatbot;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				A55B924B2C65601200596706 /* ContentView.swift in Sources */,
 				A55B925D2C6A815400596706 /* ArchiveView.swift in Sources */,
 				A55B92612C6E932500596706 /* NetworkService.swift in Sources */,
+				A54F9C942C777265003047A7 /* SettingsView.swift in Sources */,
 				A55B925F2C6A9E1100596706 /* ChatDetailView.swift in Sources */,
 				A55B92492C65601200596706 /* SimpleAIChatbotApp.swift in Sources */,
 				A55B925B2C6A814100596706 /* ChatView.swift in Sources */,

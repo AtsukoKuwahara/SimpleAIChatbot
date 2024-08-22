@@ -16,6 +16,11 @@ struct ContentView: View {
     @State private var chatEntries: [ChatEntry] = [] // Array to store archived chat entries.
     @State private var selectedModel: String = "llama3.1" // The selected model for generating responses, defaulting to "llama3.1".
     
+    // Default values for chatbot customization
+    @State private var temperature: Double = 0.8
+    @State private var seed: Int = 42
+    @State private var top_k: Int = 40
+    
     // Instance of NetworkService to handle network requests.
     private let networkService = NetworkService()
     
@@ -26,26 +31,31 @@ struct ContentView: View {
 
     // The main body of the ContentView, defining the TabView with Chat and Archive views.
     var body: some View {
-        TabView {
-            // ChatView for interacting with the chatbot.
-            ChatView(
-                userMessage: $userMessage, // Binding the user input message.
-                responseMessage: $responseMessage, // Binding the chatbot's response message.
-                isLoading: $isLoading, // Binding the loading state.
-                selectedModel: $selectedModel,  // Binding the selected model for response generation.
-                fetchResponse: fetchResponse // Passing the fetchResponse function to handle the chat interaction.
-            )
-            .tabItem {
-                Label("Chat", systemImage: "message")
-            }
-        
-            // ArchiveView for displaying saved chat entries.
-            ArchiveView(chatEntries: chatEntries)
+        NavigationView {
+            TabView {
+                // ChatView for interacting with the chatbot.
+                ChatView(
+                    userMessage: $userMessage, // Binding the user input message.
+                    responseMessage: $responseMessage, // Binding the chatbot's response message.
+                    isLoading: $isLoading, // Binding the loading state.
+                    selectedModel: $selectedModel,  // Binding the selected model for response generation.
+                    fetchResponse: fetchResponse, temperature: $temperature,
+                    seed: $seed,
+                    top_k: $top_k // Passing the fetchResponse function to handle the chat interaction.
+                )
                 .tabItem {
-                    Label("Archive", systemImage: "archivebox")
+                    Label("Chat", systemImage: "message")
                 }
+                
+                // ArchiveView for displaying saved chat entries.
+                ArchiveView(chatEntries: chatEntries)
+                    .tabItem {
+                        Label("Archive", systemImage: "archivebox")
+                    }
+            }
+            .accentColor(.orange) // Setting the accent color for the tab view.
+            
         }
-        .accentColor(.orange) // Setting the accent color for the tab view.
     }
         
     // Function to fetch the chatbot's response from the selected model.
@@ -56,9 +66,12 @@ struct ContentView: View {
         
         // Log the selected model to the console for debugging.
         print("Selected model: \(selectedModel)")
+        print("Temperature: \(temperature)")
+        print("Seed: \(seed)")
+        print("Top K: \(top_k)")
         
         // Call the network service to fetch the response.
-        networkService.fetchResponse(for: userMessage, model: selectedModel) { result in
+        networkService.fetchResponse(for: userMessage, model: selectedModel, temperature: temperature, seed: seed, top_k: top_k) { result in
             isLoading = false // Set loading state to false once the request is complete.
             switch result {
             case .success(let chatEntry): // If the request is successful.

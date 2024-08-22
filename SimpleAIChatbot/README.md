@@ -5,6 +5,7 @@ OrangeBot is an iOS application that interacts with multiple AI models, includin
 ## Features
 
 - **Multi-Model Support**: Select between different AI models (e.g., `llama3`, `llama3.1`, `mistral`) to generate responses.
+- **Customizable Settings**: Adjust the chatbot's behavior with parameters such as temperature, seed, and top_k through an intuitive settings interface.
 - **Chat History**: Archive your chat history locally for future reference.
 - **Markdown Support**: The responses from the AI are rendered using markdown, allowing for rich-text formatting.
 - **Offline Access**: Chat history is stored locally using `UserDefaults`, enabling offline access.
@@ -14,6 +15,7 @@ OrangeBot is an iOS application that interacts with multiple AI models, includin
 ![Chat Screen](assets/chat_screen_image.jpg)
 ![Archive Screen](assets/archive_screen_image.jpg)
 ![Detail Screen](assets/detail_screen_image.jpg)
+![Settings Screen](assets/settings_screen_image.jpg)
 
 ## Requirements
 
@@ -37,7 +39,7 @@ Before you can run the project, make sure you have the following installed:
 
     ```bash
     git clone <https://github.com/AtsukoKuwahara/SimpleAIChatbot.git>
-    cd orangebot
+    cd SimpleAIChatbot
     ```
 
 2. **Open the project in Xcode**:
@@ -69,6 +71,11 @@ Example JSON Request:
   "messages": [
     { "role": "user", "content": "Why is the sky blue?" }
   ],
+  "options": {
+    "seed": seed,
+    "temperature": temperature,
+    "top_k": top_k
+    },
   "stream": false
 }
 ```
@@ -78,6 +85,7 @@ Example JSON Request:
 1. **Select the Model**: Choose an AI model (`llama3`, `llama3.1`, or `mistral`) from the picker at the top of the chat screen.
 2. **Ask a Question**: Enter your question in the text field and press "Send".
 3. **View Responses**: The response will appear below the text field. You can view the chat history in the "Archive" tab.
+5. **Adjust Settings: Tap the gear icon to open the settings view and customize the chatbot's parameters such as temperature, seed, and top_k.
 4. **View Details**: Tap on an entry in the Archive to view the full conversation and the model used.
 
 ### Code Structure
@@ -86,10 +94,12 @@ Example JSON Request:
 - **ChatView.swift**: Handles the user input and displays the AI's response.
 - **ArchiveView.swift**: Displays a list of past interactions.
 - **ChatDetailView.swift**: Shows the details of a selected chat entry.
+- **SettingsView.swift**: Provides controls to customize chatbot parameters like temperature, seed, and top_k.
 - **NetworkService.swift**: Contains the logic for making HTTP POST requests to the backend.
 
 ### Customization
 
 - **Modify the Backend URL**: Change the `url` in `NetworkService.swift` to point to your custom backend service.
 - **Add New Models**: Extend the picker options in `ChatView.swift` to include new AI models.
+- **Adjust Default Settings**: Modify the default values in `SettingsView.swift` to change how the chatbot behaves initially.
 
