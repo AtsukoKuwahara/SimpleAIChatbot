@@ -18,14 +18,14 @@ OrangeBot is an iOS application built using **SwiftUI**, leveraging advanced AI 
 ---
 
 ## **Screenshots**
-```html
+
 <div align="center">
-<img src="assets/chat_screen_image.jpg" alt="Chat Screen" width="300"/>  
-<img src="assets/archive_screen_image.jpg" alt="Archive Screen" width="300"/>  
-<img src="assets/detail_screen_image.jpg" alt="Detail Screen" width="300"/>  
-<img src="assets/settings_screen_image.jpg" alt="Settings Screen" width="300"/>  
+<img src="SimpleAIChatbot/assets/chat_screen_image.jpg" alt="Chat Screen" width="300"/>  
+<img src="SimpleAIChatbot/assets/archive_screen_image.jpg" alt="Archive Screen" width="300"/>  
+<img src="SimpleAIChatbot/assets/detail_screen_image.jpg" alt="Detail Screen" width="300"/>  
+<img src="SimpleAIChatbot/assets/settings_screen_image.jpg" alt="Settings Screen" width="300"/>  
 </div>
-```
+
 ---
 
 ## **Requirements**
