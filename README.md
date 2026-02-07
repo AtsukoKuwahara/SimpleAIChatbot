@@ -1,153 +1,130 @@
-# **OrangeBot: A Simple AI Chatbot**
+# OrangeBot (SimpleAIChatbot)
 
-OrangeBot is an iOS application built using **SwiftUI**, leveraging advanced AI models like `llama3.2`, `llama3.1`, and `mistral` to provide chatbot responses. The app communicates with a **local API server** powered by **Ollama** for processing user queries.
+OrangeBot is a SwiftUI iOS chatbot app connected to local Ollama.
+It is designed for beginner-friendly local AI chat with simple model management and archive review.
 
----
+## Core Value
 
-## **Features**
+- **Model flexibility for local AI**
+  Switch models, add models in-app, and compare behavior quickly.
+- **Archive-first learning workflow**
+  Save Q&A history and review past conversations anytime.
 
-- **Multi-Model Support**: Choose between AI models such as `llama3.2`, `llama3.1`, and `mistral`.
-- **Customizable Settings**: Configure chatbot behavior with parameters like:
-  - **Temperature**: Controls response creativity.
-  - **Seed**: Ensures deterministic outputs.
-  - **Top_k**: Influences response diversity.
-- **Chat History**: Save conversations locally for offline access.
-- **Markdown Rendering**: Display rich-text formatted responses.
-- **Offline Access**: Access saved chat history using `UserDefaults`.
+## Architecture
 
----
+Runtime path:
 
-## **Screenshots**
+`iOS App (SwiftUI) -> Ollama API (http://localhost:11434)`
 
-<div align="center">
-<img src="SimpleAIChatbot/assets/chat_screen_image.jpg" alt="Chat Screen" width="300"/>  
-<img src="SimpleAIChatbot/assets/archive_screen_image.jpg" alt="Archive Screen" width="300"/>  
-<img src="SimpleAIChatbot/assets/detail_screen_image.jpg" alt="Detail Screen" width="300"/>  
-<img src="SimpleAIChatbot/assets/settings_screen_image.jpg" alt="Settings Screen" width="300"/>  
-</div>
+## Code Structure
 
----
+Main modules:
 
-## **Requirements**
+- `SimpleAIChatbot/App`: app entry, tabs, settings state, model list refresh
+- `SimpleAIChatbot/Views`: chat, archive, detail, loading, model manager sheet
+- `SimpleAIChatbot/Services`: networking and chat persistence logic
+- `SimpleAIChatbot/Models`: `ChatEntry`
 
-- **Xcode**: Version 12 or later  
-- **iOS**: Version 17.0 or later  
-- **Swift**: Version 5.3 or later  
-- **Ollama Local Server**: [Download from Ollama](https://ollama.com/search)
+## Features
 
----
+- Chat with local Ollama (`/api/chat`)
+- Model selection from a compact chooser + guide table
+- In-app model download and refresh (`Manage Models`)
+- Chat-oriented model list filtering (non-chat models can be hidden)
+- Archive tab for reviewing saved conversations
+- Persisted generation settings:
+  - `temperature`
+  - `seed`
+  - `top_k`
+- Better error messages (timeout/connection/server errors)
 
-## **Getting Started**
+## Model UX (Beginner-Friendly)
 
-### **Prerequisites**
+- **Choose** button opens recommended models
+- **Manage Models...** opens a dedicated sheet where users can:
+  - add a model (via Ollama pull)
+  - refresh local model list
+  - switch current model
+- If a model tag is omitted (example: `mistral`), the app resolves it to `mistral:latest`
 
-1. Install the latest version of **Xcode**.
-2. Download and install the **Ollama Local Server** by visiting the [Ollama website](https://ollama.com/search).  
-   This server hosts and manages the AI models used in the app.
-3. Download your preferred AI models using the Ollama command-line tool. For example:
-    ```bash
-    ollama pull llama3.1
-    ```
+## How Available Models Are Fetched
 
----
+- The app calls `GET /api/tags` to fetch local installed models.
+- It calls `POST /api/pull` to download a new model.
+- After download, it refreshes `/api/tags` and updates the UI list.
 
-### **Installation**
+## Requirements
 
-1. **Clone the repository**:
-    ```bash
-    git clone https://github.com/AtsukoKuwahara/SimpleAIChatbot.git
-    cd SimpleAIChatbot
-    ```
+- iOS 17.0+
+- Xcode 15.4+ (newer versions supported)
+- Swift 5.9+
+- Ollama 0.15+ installed and running locally
+- macOS environment where iOS Simulator and Ollama run on the same machine
 
-2. **Open the project in Xcode**:
-    ```bash
-    open SimpleAIChatbot.xcodeproj
-    ```
+## Tested Environment
 
-3. **Run the Ollama server**:
-    ```bash
-    ollama serve
-    ```
+- Xcode: 26.x
+- iOS Simulator: iPhone 17 (iOS 26.2)
+- Ollama: 0.15.5
 
-4. **Build and run the app**:
-    - Select your target device or simulator in Xcode and click **Run**.
+## Getting Started
 
----
+1. Clone:
 
-## **Backend Service**
+```bash
+git clone https://github.com/AtsukoKuwahara/SimpleAIChatbot.git
+cd SimpleAIChatbot
+```
 
-OrangeBot interacts with a **local API server** managed by Ollama. This server processes API requests and generates responses using the selected AI model.
+2. Pull at least one model:
 
-### **Example API Request**
+```bash
+ollama pull llama3.1
+```
 
-Endpoint: `/api/chat`  
+3. Start Ollama:
+
+```bash
+ollama serve
+```
+
+4. Open in Xcode:
+
+```bash
+open SimpleAIChatbot.xcodeproj
+```
+
+5. Run on simulator (for localhost access, use iOS Simulator on the same Mac).
+
+## API Example
+
+Request for chat (`POST /api/chat`):
+
 ```json
 {
-  "model": "llama3.1",
-  "messages": [
-    { "role": "user", "content": "Why is the sky blue?" }
-  ],
+  "model": "llama3.1:latest",
+  "messages": [{ "role": "user", "content": "Why is the sky blue?" }],
   "options": {
     "seed": 42,
-    "temperature": 0.7,
+    "temperature": 0.8,
     "top_k": 40
   },
   "stream": false
 }
 ```
-For more details on Ollama’s API, see the [Ollama API Documentation](https://github.com/ollama/ollama/blob/main/docs/api.md).
 
----
+## Known Limitations
 
-## **Usage**
+- Non-streaming response rendering only
+- No long-conversation summarization/windowing yet
+- No token/cost telemetry in UI
+- Local-only archive (no cloud sync/export)
 
-1. **Select the Model**: Choose from `llama3`, `llama3.1`, or `mistral` using the model picker at the top of the chat screen.
-2. **Ask a Question**: Type your query in the text field and press **Send**.
-3. **View Responses**: AI-generated responses appear below the input field. Access chat history in the **Archive** tab.
-4. **Adjust Settings**: Open the **Settings View** to customize parameters like temperature, seed, and top_k.
-5. **Detailed View**: Tap an entry in the Archive to view the complete conversation and model details.
+## Screenshots
 
----
-
-## **Code Structure**
-
-```
-SimpleAIChatbot
-├── App
-│   ├── SimpleAIChatbotApp.swift     # Entry point of the application
-│   ├── ContentView.swift            # Main view containing the TabView
-│   └── SettingsView.swift           # Provides chatbot parameter customization
-├── Views
-│   ├── ChatView.swift               # Handles user input and displays AI responses
-│   ├── ChatDetailView.swift         # Shows detailed conversation entries
-│   ├── ArchiveView.swift            # Displays a list of archived chats
-│   └── LoadingView.swift            # Loading indicators for network calls
-├── Models
-│   └── ChatEntry.swift              # Represents a single chat interaction
-└── Services
-    ├── NetworkService.swift         # Handles HTTP requests to the backend
-    └── ChatViewModel.swift          # Manages chat state and persistence
-```
-
----
-
-## **Customization**
-
-1. **Add New Models**:  
-   Use the `ollama pull` command to download additional models:
-    ```bash
-    ollama pull <model_name>
-    ```
-
-2. **Modify Default Settings**:  
-   Update the default parameter values in `SettingsView.swift`.
-
-3. **Change Backend URL**:  
-   Modify the API endpoint in `NetworkService.swift` to match your server configuration.
-
----
-
-## **Additional Resources**
-
-- [Ollama API Documentation](https://github.com/ollama/ollama/blob/main/docs/api.md)  
-- [Download AI Models](https://ollama.com/search)  
+<div align="center">
+<img src="SimpleAIChatbot/assets/chat_screen_image.jpg" alt="Chat Screen" width="300"/>
+<img src="SimpleAIChatbot/assets/archive_screen_image.jpg" alt="Archive Screen" width="300"/>
+<img src="SimpleAIChatbot/assets/manage_models_image.jpg" alt="Manage Models Screen" width="300"/>
+<img src="SimpleAIChatbot/assets/settings_screen_image.jpg" alt="Settings Screen" width="300"/>
+</div>

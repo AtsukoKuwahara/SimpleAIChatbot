@@ -34,7 +34,8 @@ struct CustomLoadingView: View {
             .rotationEffect(Angle(degrees: isAnimating ? 360 : 0)) // Rotates continuously
             .animation(
                 Animation.linear(duration: 1)
-                    .repeatForever(autoreverses: false)
+                    .repeatForever(autoreverses: false),
+                value: isAnimating
             )
             .onAppear { isAnimating = true }
             .onDisappear { isAnimating = false }

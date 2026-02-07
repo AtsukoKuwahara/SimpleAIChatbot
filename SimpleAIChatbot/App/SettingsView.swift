@@ -17,10 +17,10 @@ struct SettingsView: View {
         NavigationView {
             Form {
                 Section(header: Text("TEMPERATURE")) {
-                    Text("Controls the creativity of the model. Higher values lead to more creative responses.")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .padding(.bottom, 5)
+                    settingDescription(
+                        "Controls response style and creativity.",
+                        hint: "Guide: 0.2 = factual, 0.8 = balanced, 1.0 = creative."
+                    )
 
                     Slider(value: $temperature, in: 0...1, step: 0.1) {
                         Text("Temperature")
@@ -30,10 +30,10 @@ struct SettingsView: View {
                 }
 
                 Section(header: Text("SEED")) {
-                    Text("Sets the random number seed. The same seed will generate the same response.")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .padding(.bottom, 5)
+                    settingDescription(
+                        "Sets the random seed used for generation.",
+                        hint: "Same model + same prompt + same settings + same seed gives more reproducible outputs."
+                    )
 
                     Stepper(value: $seed, in: 0...100) {
                         Text("Seed: \(seed)")
@@ -41,10 +41,10 @@ struct SettingsView: View {
                 }
 
                 Section(header: Text("TOP K")) {
-                    Text("Reduces the probability of generating nonsense. Higher values allow more diverse answers.")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .padding(.bottom, 5)
+                    settingDescription(
+                        "Controls how many candidate tokens are considered each step.",
+                        hint: "Lower = stable and focused. Higher = broader and more diverse."
+                    )
 
                     Stepper(value: $top_k, in: 10...100) {
                         Text("Top K: \(top_k)")
@@ -57,6 +57,19 @@ struct SettingsView: View {
             })
             .accentColor(.orange)
         }
+    }
+
+    @ViewBuilder
+    private func settingDescription(_ text: String, hint: String) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(text)
+                .font(.caption)
+                .foregroundColor(.gray)
+            Text(hint)
+                .font(.caption2)
+                .foregroundColor(.secondary)
+        }
+        .padding(.bottom, 6)
     }
 }
 

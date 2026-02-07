@@ -99,7 +99,7 @@ struct ArchiveView: View {
                 // Undo Toast
                 VStack {
                     Spacer()
-                    if showUndoToast, let entry = recentlyDeletedEntry {
+                    if showUndoToast, recentlyDeletedEntry != nil {
                         HStack {
                             Text("Chat deleted")
                                 .foregroundColor(.white)
